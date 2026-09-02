@@ -1,0 +1,65 @@
+-- CREATE DATABASE - CRIA UM BANCO
+CREATE 
+   DATABASE Bercario;
+   
+-- DROP DATABASE - EXCLUI O BANCO
+DROP 
+   DATABASE Bercario;
+   
+-- USE - UTILIZA UM BANCO PARA REALIZAE A OPERAÇÃO
+USE Bercario;
+   
+-- CREATE TABLE - CRIA UMA NOVA TABELA.
+-- PRIMARY KEY - DIZ QUE O ATRIBUTO E CHAVE PRIMARIO.
+-- AUTO INCREMENT - DIZ QUE AQUELE ATRIBUTO É AUTO INCREMENTAL.
+-- NOT NULL - DIZ QUE AQUELE ATRIBUTO DEVE SER PREENCHIDO, NÃO PODE ESTAR VAZIO.
+-- UNIQUE - DIZ QUE SO PODE TER UM DAQUELE REGISTRO NA TABELA.
+
+CREATE TABLE tb_mae(
+   cod_mae INT PRIMARY KEY auto_increment,
+   nome_mae VARCHAR(255) NOT NULL,
+   telefone_mae VARCHAR(20),
+   email_mae VARCHAR(55)UNIQUE
+   
+   );
+
+use bercario;
+   
+CREATE TABLE tb_medico(
+cod_medico INT not null,
+crm_medico VARCHAR(55) not null,
+id_medico int primary key
+);
+
+-- ALTER TABLE - ALTERA ALGO EXISTENTE NO BANCO
+-- ADD - ADICIONA COLUNAS A UMA TABELA EXISTENTE
+ALTER TABLE tb_medico
+ADD especialidade ENUM("GERAL","PEDIATRA","OBSTETRA");
+
+-- DROP COLUMN - EXCLUI UMA COLUNA DE UMA TABELA EXISTENTE 
+ALTER TABLE tb_medico
+DROP COLUMN especialidade;
+
+-- MODIFY - MODIFICA UMA COLUNA DE UMA TABELA EXISTENTE
+ALTER TABLE tb_medico
+MODIFY COLUMN especialidade VARCHAR(25);
+
+-- DROP TABLE - DELETA UMA TABELA
+DROP TABLE tb_medico;
+
+CREATE TABLE tb_bebe(
+   cod_bebe INT PRIMARY KEY auto_increment,
+   nome_bebe VARCHAR(255) NOT NULL,
+   dt_nasc DATE,
+   hr_nasc TIME,
+   peso_bebe DECIMAL(6,4),
+   id_mae INT,
+   id_medico INT,
+   -- REFERENCIANDO AS CHAVES ESTRANGEIRAS
+   FOREIGN KEY(id_mae) REFERENCES tb_mae(cod_mae),
+   FOREIGN KEY (id_medico) REFERENCES tb_medico(cod_medico)
+   
+   );
+
+
+
